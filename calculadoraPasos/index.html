@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Pasos</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>❤️ Calculadora de Pasos para mi AMORSITO ❤️</h1>
+
+    <button id="botonModo" onclick="cambiarModo()">
+        Cambiar a Distancia → Pasos
+    </button>
+
+    <div id="modoPasos">
+
+        <p class="subtitulo">Objetivo diario: <strong>12.000 pasos</strong></p>
+
+        <input type="number" id="pasos" placeholder="Introduce los pasos realizados">
+
+        <button onclick="calcularPasos()">Calcular</button>
+
+    </div>
+
+    <div id="modoDistancia" style="display:none;">
+
+        <p class="subtitulo">Introduce una distancia en kilómetros</p>
+
+        <input type="number" id="distancia" placeholder="Distancia en km">
+
+        <button onclick="calcularDistancia()">Calcular</button>
+
+    </div>
+
+    <div id="resultado"></div>
+
+</div>
+
+<script>
+
+const longitudPaso = 0.75;
+const objetivo = 12000;
+
+function cambiarModo(){
+
+    const pasos = document.getElementById("modoPasos");
+    const distancia = document.getElementById("modoDistancia");
+    const boton = document.getElementById("botonModo");
+
+    document.getElementById("resultado").innerHTML = "";
+
+    if(pasos.style.display !== "none"){
+        pasos.style.display = "none";
+        distancia.style.display = "block";
+        boton.innerHTML = "Cambiar a Pasos → Distancia";
+    } else {
+        pasos.style.display = "block";
+        distancia.style.display = "none";
+        boton.innerHTML = "Cambiar a Distancia → Pasos";
+    }
+}
+
+function calcularPasos(){
+
+    let pasos = parseInt(document.getElementById("pasos").value);
+
+    if(isNaN(pasos) || pasos < 0){
+        resultado.innerHTML = "Introduce un número válido.";
+        return;
+    }
+
+    if(pasos >= objetivo){
+
+        resultado.innerHTML = `
+            <p class="ok">🎉 ¡Pasos de hoy terminados! ¡Enhorabuena Amooor! 🐱🐱❤️</p>
+            <p>Has recorrido aproximadamente <strong>${(pasos*longitudPaso/1000).toFixed(2)} km</strong></p>
+        `;
+        return;
+    }
+
+    let restantes = objetivo - pasos;
+    let metros = restantes * longitudPaso;
+    let km = metros / 1000;
+
+    resultado.innerHTML = `
+        <p><strong>Pasos restantes:</strong> ${restantes}</p>
+        <p><strong>Distancia restante:</strong> ${metros.toFixed(0)} m (${km.toFixed(2)} km)</p>
+        <p><strong>Progreso:</strong> ${(pasos/objetivo*100).toFixed(1)}%</p>
+    `;
+}
+
+function calcularDistancia(){
+
+    let km = parseFloat(document.getElementById("distancia").value);
+
+    if(isNaN(km) || km < 0){
+        resultado.innerHTML = "Introduce una distancia válida.";
+        return;
+    }
+
+    let pasos = Math.round((km * 1000) / longitudPaso);
+
+    resultado.innerHTML = `
+        <p>Para recorrer <strong>${km.toFixed(2)} km</strong> necesitas:</p>
+        <h2>${pasos} pasos</h2>
+    `;
+}
+
+</script>
+
+</body>
+</html>

@@ -105,3 +105,54 @@ button:hover{
         font-size: 16px;
     }
 }
+
+.botonPantalla {
+    display: block;
+    width: 100%;
+    background: #e84393;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 15px 0 20px;
+    transition: 0.3s;
+}
+
+.botonPantalla:hover {
+    background: #d63384;
+    transform: scale(1.03);
+}
+
+
+/* CALCULADORA DE COMIDAS */
+
+select {
+    width: 90%;
+    padding: 12px;
+    font-size: 16px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: white;
+}
+
+#resultadoComida {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    font-size: 18px;
+}
+
+@media (max-width: 480px) {
+    select {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    #resultadoComida {
+        font-size: 16px;
+    }
+}

@@ -192,12 +192,13 @@ function calcularComida() {
         return;
     }
 
+    // Rangos orientativos: factor mínimo y máximo
     const factores = {
-        arroz: 2.8,
-        patata: 1.0,
-        boniato: 0.9,
-        macarrones: 2.3,
-        pollo: 0.75
+        arroz:     { min: 2.5, max: 3.0 },
+        patata:    { min: 0.9, max: 1.0 },
+        boniato:   { min: 0.8, max: 1.0 },
+        macarrones:{ min: 2.0, max: 2.5 },
+        pollo:     { min: 0.70, max: 0.80 }
     };
 
     const nombres = {
@@ -205,18 +206,20 @@ function calcularComida() {
         patata: "Patata",
         boniato: "Boniato",
         macarrones: "Macarrones",
-        pollo: "Pollo cocinado"
+        pollo: "Pollo cocinado (plancha o hervido)"
     };
 
-    const pesoCocinado = pesoCrudo * factores[comida];
+    const pesoMinimo = Math.round(pesoCrudo * factores[comida].min);
+    const pesoMaximo = Math.round(pesoCrudo * factores[comida].max);
 
     resultado.innerHTML = `
         <p>Alimento: <strong>${nombres[comida]}</strong></p>
         <p>Peso en crudo: <strong>${pesoCrudo} g</strong></p>
         <p>Peso cocinado aproximado:</p>
-        <h2 class="ok">${Math.round(pesoCocinado)} g</h2>
+        <h2 class="ok">${pesoMinimo} – ${pesoMaximo} g</h2>
     `;
 }
+
 
 
 </script>
